@@ -10,7 +10,7 @@ def cramers_corrected_stat(confusion_matrix):
     Society 42 (2013): 323-328
     """
     chi2 = ss.chi2_contingency(confusion_matrix)[0]
-    n = confusion_matrix.sum().sum()
+    n = confusion_matrix.values.sum()
     phi2 = chi2 / n
     r, k = confusion_matrix.shape
     phi2corr = max(0, phi2 - ((k - 1) * (r - 1)) / (n - 1))

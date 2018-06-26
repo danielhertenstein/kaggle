@@ -65,9 +65,12 @@ def ordinal_category_pipeline(attribute_name):
     ])
 
 
-def str_category_pipeline(attribute_name):
-    return Pipeline([
+def str_category_pipeline(attribute_name, impute=False):
+    pieces = [
         ('selector', DataFrameSelector(attribute_name)),
         ('factorize', CategoryFactorizer()),
-        ('one_hot', OneHotEncoder())
-    ])
+    ]
+    if impute:
+        pieces.append(('impute', Imputer(missing_values=-1, strategy='most_frequent')))
+    pieces.append(('one_hot', OneHotEncoder()))
+    return Pipeline(pieces)
