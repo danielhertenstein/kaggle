@@ -22,6 +22,8 @@ def cramers_corrected_stat(confusion_matrix):
 def association_matrix(dataframe, column, with_cols):
     associations = pd.Series(index=with_cols)
     for col in with_cols:
+        if col == column:
+            continue
         confusion_matrix = pd.crosstab(dataframe[column], dataframe[col])
         cramers_v = cramers_corrected_stat(confusion_matrix)
         associations[col] = cramers_v
